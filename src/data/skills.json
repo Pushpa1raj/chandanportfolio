@@ -1,0 +1,56 @@
+{
+  "categories": [
+    {
+      "id": "frontend",
+      "title": "Frontend",
+      "icon": "Monitor",
+      "skills": ["React", "Next.js", "TypeScript", "HTML5", "CSS3", "Tailwind CSS"],
+      "color": "#0071E3"
+    },
+    {
+      "id": "backend",
+      "title": "Backend",
+      "icon": "Server",
+      "skills": ["Node.js", "Express", "REST APIs", "Socket.io"],
+      "color": "#34C759"
+    },
+    {
+      "id": "database",
+      "title": "Database",
+      "icon": "Database",
+      "skills": ["MongoDB", "Firebase", "Firestore", "MySQL"],
+      "color": "#FF9500"
+    },
+    {
+      "id": "ui",
+      "title": "UI / UX",
+      "icon": "Palette",
+      "skills": ["Figma", "Framer Motion", "GSAP", "Responsive Design"],
+      "color": "#AF52DE"
+    },
+    {
+      "id": "ai",
+      "title": "AI / ML",
+      "icon": "Brain",
+      "skills": ["OpenAI API", "LangChain", "Python", "Prompt Engineering"],
+      "color": "#FF2D55"
+    },
+    {
+      "id": "tools",
+      "title": "Tools",
+      "icon": "Wrench",
+      "skills": ["Git", "GitHub", "VS Code", "Vercel", "npm", "Linux"],
+      "color": "#5856D6"
+    }
+  ],
+
+  "techStack": [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Node.js",
+    "MongoDB",
+    "Firebase",
+    "AI"
+  ]
+}

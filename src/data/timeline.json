@@ -1,0 +1,39 @@
+{
+  "milestones": [
+    {
+      "id": "school",
+      "year": "2022",
+      "title": "School Foundation",
+      "description": "Completed higher secondary education with a strong foundation in mathematics and science. First exposure to programming and logical thinking.",
+      "icon": "GraduationCap"
+    },
+    {
+      "id": "college",
+      "year": "2024",
+      "title": "B.Tech CSE-IoT",
+      "description": "Joined Techno Main Salt Lake, Kolkata for B.Tech in Computer Science (IoT). Started building web applications and exploring modern technologies.",
+      "icon": "Building2"
+    },
+    {
+      "id": "projects",
+      "year": "2025",
+      "title": "Building Projects",
+      "description": "Developed multiple full-stack applications including AI-powered tools, developer dashboards, and IoT monitoring systems. Started contributing to open source.",
+      "icon": "Code2"
+    },
+    {
+      "id": "hackathons",
+      "year": "2025",
+      "title": "Hackathons & Community",
+      "description": "Participated in hackathons, coding competitions, and developer community events. Building connections and learning from industry professionals.",
+      "icon": "Trophy"
+    },
+    {
+      "id": "future",
+      "year": "2026+",
+      "title": "What's Next",
+      "description": "Seeking meaningful internships, contributing to impactful open-source projects, and diving deeper into AI/ML and scalable system design.",
+      "icon": "Rocket"
+    }
+  ]
+}

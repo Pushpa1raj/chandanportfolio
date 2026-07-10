@@ -1,0 +1,27 @@
+{
+  "name": "Chandan Kumar",
+  "title": "First Year B.Tech CSE-IoT Student",
+  "tagline": "Building thoughtful digital experiences with code and creativity.",
+  "location": "Darbhanga, Bihar",
+  "education": {
+    "institution": "Techno Main Salt Lake",
+    "city": "Kolkata",
+    "branch": "CSE-IoT",
+    "year": "First Year",
+    "degree": "B.Tech"
+  },
+  "bio": "I'm a first-year Computer Science (IoT) student at Techno Main Salt Lake, Kolkata, passionate about building clean, modern web applications and exploring AI-driven experiences. Originally from Darbhanga, Bihar, I enjoy solving real-world problems through technology while continuously learning and improving my craft.",
+  "social": {
+    "email": "chandan@example.com",
+    "github": "https://github.com/chandankumar",
+    "linkedin": "https://linkedin.com/in/chandankumar",
+    "resume": "/resume.pdf"
+  },
+  "navItems": [
+    { "label": "Home", "href": "#home" },
+    { "label": "Projects", "href": "#projects" },
+    { "label": "Skills", "href": "#skills" },
+    { "label": "About", "href": "#about" },
+    { "label": "Contact", "href": "#contact" }
+  ]
+}

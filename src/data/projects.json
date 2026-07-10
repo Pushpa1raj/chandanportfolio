@@ -1,0 +1,43 @@
+{
+  "projects": [
+    {
+      "slug": "ai-content-studio",
+      "title": "AI Content Studio",
+      "description": "An AI-powered content creation platform that generates, edits, and optimizes written content using advanced language models. Features real-time collaboration and smart suggestions.",
+      "longDescription": "A comprehensive content creation platform leveraging AI to help writers produce high-quality content faster. The application features real-time collaborative editing, AI-powered grammar and style suggestions, SEO optimization tools, and content analytics. Built with a focus on clean architecture and exceptional user experience.",
+      "techStack": ["Next.js", "TypeScript", "OpenAI API", "MongoDB", "Tailwind CSS", "Framer Motion"],
+      "category": "AI",
+      "color": "#6366F1",
+      "link": "https://github.com/chandankumar/ai-content-studio",
+      "github": "https://github.com/chandankumar/ai-content-studio",
+      "image": "/images/projects/ai-content-studio.jpg",
+      "featured": true
+    },
+    {
+      "slug": "devflow-dashboard",
+      "title": "DevFlow Dashboard",
+      "description": "A developer productivity dashboard that tracks GitHub activity, manages tasks, and visualizes coding patterns with beautiful charts and real-time updates.",
+      "longDescription": "DevFlow is a productivity dashboard designed for developers who want insights into their coding habits. It integrates with GitHub to track contributions, pull requests, and commit patterns. Features include task management with kanban boards, time tracking, and beautiful data visualizations powered by D3.js.",
+      "techStack": ["React", "Node.js", "Express", "GitHub API", "D3.js", "Firebase"],
+      "category": "Full Stack",
+      "color": "#0EA5E9",
+      "link": "https://github.com/chandankumar/devflow-dashboard",
+      "github": "https://github.com/chandankumar/devflow-dashboard",
+      "image": "/images/projects/devflow-dashboard.jpg",
+      "featured": true
+    },
+    {
+      "slug": "smart-campus-iot",
+      "title": "Smart Campus IoT",
+      "description": "An IoT-based smart campus monitoring system that tracks environmental data, occupancy, and energy usage across campus buildings in real-time.",
+      "longDescription": "A comprehensive IoT solution for smart campus management. The system uses sensors to monitor temperature, humidity, air quality, and occupancy across campus buildings. Data is streamed in real-time to a web dashboard where administrators can view analytics, set alerts, and optimize energy consumption.",
+      "techStack": ["React", "Node.js", "MQTT", "MongoDB", "Socket.io", "Chart.js"],
+      "category": "IoT",
+      "color": "#10B981",
+      "link": "https://github.com/chandankumar/smart-campus-iot",
+      "github": "https://github.com/chandankumar/smart-campus-iot",
+      "image": "/images/projects/smart-campus-iot.jpg",
+      "featured": true
+    }
+  ]
+}
