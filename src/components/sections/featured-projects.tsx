@@ -77,11 +77,11 @@ function ProjectCard({ project, index }: ProjectCardProps) {
         ease: [0.25, 0.1, 0.25, 1],
       }}
     >
-      <article className="group overflow-hidden rounded-lg border border-black/[0.08] bg-white/86 shadow-[0_16px_48px_rgba(16,24,40,0.08)] backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(16,24,40,0.14)]">
+      <article className="group overflow-hidden rounded-lg border border-black/[0.08] dark:border-white/[0.08] bg-white/86 dark:bg-white/[0.04] shadow-[0_16px_48px_rgba(16,24,40,0.08)] dark:shadow-[0_16px_48px_rgba(0,0,0,0.3)] backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(16,24,40,0.14)] dark:hover:shadow-[0_24px_70px_rgba(0,0,0,0.4)]">
         <div className="grid gap-0 lg:grid-cols-[1.08fr_0.92fr]">
           <div className="order-2 flex flex-col justify-center p-7 md:p-10 lg:order-1">
             <div
-              className="mb-5 inline-flex w-fit items-center gap-2 rounded-full bg-black/[0.04] px-3 py-1.5 text-xs font-bold uppercase"
+              className="mb-5 inline-flex w-fit items-center gap-2 rounded-full bg-black/[0.04] dark:bg-white/[0.06] px-3 py-1.5 text-xs font-bold uppercase"
               style={{ color: project.color }}
             >
               <span
@@ -90,13 +90,13 @@ function ProjectCard({ project, index }: ProjectCardProps) {
               />
               {project.category}
             </div>
-            <h3 className="text-title mb-4 text-[#15171C]">{project.title}</h3>
+            <h3 className="text-title mb-4 text-[#15171C] dark:text-white">{project.title}</h3>
             <p className="text-body mb-7">{project.description}</p>
             <div className="mb-8 flex flex-wrap gap-2">
               {project.techStack.slice(0, 4).map((tech) => (
                 <span
                   key={tech}
-                  className="rounded-full bg-black/[0.04] px-3 py-1.5 text-xs font-semibold text-[#5E6673]"
+                  className="rounded-full bg-black/[0.04] dark:bg-white/[0.06] px-3 py-1.5 text-xs font-semibold text-[#5E6673] dark:text-[#a1a1aa]"
                 >
                   {tech}
                 </span>
@@ -116,7 +116,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-[#445063] transition-colors hover:text-[#15171C]"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-[#445063] dark:text-[#a1a1aa] transition-colors hover:text-[#15171C] dark:hover:text-white"
                 >
                   <FaGithub size={16} />
                   Source
@@ -136,7 +136,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
             </div>
           </div>
 
-          <div className="order-1 min-h-[320px] bg-black/[0.02] p-4 md:p-6 lg:order-2">
+          <div className="order-1 min-h-[320px] bg-black/[0.02] dark:bg-white/[0.02] p-4 md:p-6 lg:order-2">
             <ProjectVisual project={project} />
           </div>
         </div>

@@ -36,7 +36,7 @@ export default function ContactSection() {
 
   return (
     <section id="contact" className="scroll-mt-24 px-6 py-24 md:py-32" ref={ref}>
-      <div className="mx-auto max-w-5xl overflow-hidden rounded-lg border border-black/[0.08] bg-[#15171C] p-8 text-center shadow-[0_24px_80px_rgba(16,24,40,0.18)] md:p-12">
+      <div className="mx-auto max-w-5xl overflow-hidden rounded-lg border border-black/[0.08] dark:border-white/[0.08] bg-[#15171C] dark:bg-[#1a1a1f] p-8 text-center shadow-[0_24px_80px_rgba(16,24,40,0.18)] dark:shadow-[0_24px_80px_rgba(0,0,0,0.6)] md:p-12">
         <motion.p
           className="mb-3 text-sm font-bold uppercase text-[#9DB2FF]"
           initial={{ opacity: 0, y: 12 }}

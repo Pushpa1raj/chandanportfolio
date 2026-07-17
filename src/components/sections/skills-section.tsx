@@ -91,21 +91,23 @@ function SkillCard({ category, index }: SkillCardProps) {
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative rounded-lg border border-black/[0.08] bg-white/86 p-6 shadow-sm backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_42px_rgba(16,24,40,0.10)]"
+      className="group relative rounded-lg border border-black/[0.08] dark:border-white/[0.08] bg-white/86 dark:bg-white/[0.04] p-6 shadow-sm backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_42px_rgba(16,24,40,0.10)] dark:hover:shadow-[0_16px_42px_rgba(0,0,0,0.3)]"
     >
       {/* Icon */}
       <div
         className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg transition-all duration-300"
         style={{
-          background: isHovered ? `${category.color}12` : "#F5F5F7",
+          background: isHovered ? `${category.color}12` : undefined,
           color: isHovered ? category.color : "#6E6E73",
         }}
       >
-        <IconComponent size={20} />
+        <div className={`${!isHovered ? "dark:text-[#a1a1aa]" : ""}`}>
+          <IconComponent size={20} />
+        </div>
       </div>
 
       {/* Title */}
-      <h3 className="mb-4 text-base font-bold text-[#15171C]">
+      <h3 className="mb-4 text-base font-bold text-[#15171C] dark:text-white">
         {category.title}
       </h3>
 
@@ -114,7 +116,7 @@ function SkillCard({ category, index }: SkillCardProps) {
         {category.skills.map((skill) => (
           <span
             key={skill}
-            className="rounded-md bg-black/[0.04] px-2.5 py-1.5 text-xs font-semibold text-[#5E6673] transition-colors duration-300 group-hover:bg-black/[0.07]"
+            className="rounded-md bg-black/[0.04] dark:bg-white/[0.06] px-2.5 py-1.5 text-xs font-semibold text-[#5E6673] dark:text-[#a1a1aa] transition-colors duration-300 group-hover:bg-black/[0.07] dark:group-hover:bg-white/[0.1]"
           >
             {skill}
           </span>

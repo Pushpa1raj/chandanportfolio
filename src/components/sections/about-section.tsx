@@ -56,7 +56,7 @@ export default function AboutSection() {
 
         <div>
           <motion.p
-            className="mb-8 text-xl font-semibold leading-9 text-[#15171C] md:text-2xl md:leading-10"
+            className="mb-8 text-xl font-semibold leading-9 text-[#15171C] dark:text-[#e4e4e7] md:text-2xl md:leading-10"
             initial={{ opacity: 0, y: 25 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
@@ -68,7 +68,7 @@ export default function AboutSection() {
           {infoCards.map((card, i) => (
             <motion.div
               key={card.label}
-              className="rounded-lg border border-black/[0.08] bg-white/86 p-5 shadow-sm backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_38px_rgba(16,24,40,0.09)]"
+              className="rounded-lg border border-black/[0.08] dark:border-white/[0.08] bg-white/86 dark:bg-white/[0.04] p-5 shadow-sm backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_38px_rgba(16,24,40,0.09)] dark:hover:shadow-[0_14px_38px_rgba(0,0,0,0.3)]"
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{
@@ -81,10 +81,10 @@ export default function AboutSection() {
                 size={18}
                 className="mb-3 text-[#2458FF]"
               />
-              <p className="mb-1 text-xs font-semibold uppercase text-[#5E6673]">
+              <p className="mb-1 text-xs font-semibold uppercase text-[#5E6673] dark:text-[#a1a1aa]">
                 {card.label}
               </p>
-              <p className="text-base font-bold text-[#15171C]">
+              <p className="text-base font-bold text-[#15171C] dark:text-white">
                 {card.value}
               </p>
             </motion.div>

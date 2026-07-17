@@ -22,12 +22,12 @@ interface Project {
 
 export default function ProjectPageClient({ project }: { project: Project }) {
   return (
-    <main className="min-h-screen bg-[#F7F8FB]">
+    <main className="min-h-screen bg-[#F7F8FB] dark:bg-[#0a0a0e] transition-colors duration-400">
       {/* Back Button */}
       <div className="fixed top-4 left-4 z-50">
         <motion.a
           href="/#projects"
-          className="inline-flex items-center gap-2 rounded-full border border-black/[0.08] bg-white/80 px-4 py-2 text-sm font-semibold text-[#15171C] shadow-sm backdrop-blur-xl transition-all duration-300 hover:bg-white"
+          className="inline-flex items-center gap-2 rounded-full border border-black/[0.08] dark:border-white/[0.1] bg-white/80 dark:bg-white/[0.06] px-4 py-2 text-sm font-semibold text-[#15171C] dark:text-white shadow-sm backdrop-blur-xl transition-all duration-300 hover:bg-white dark:hover:bg-white/[0.1]"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4, delay: 0.2 }}
@@ -48,7 +48,7 @@ export default function ProjectPageClient({ project }: { project: Project }) {
               transition={{ duration: 0.6 }}
             >
               <span
-                className="inline-flex items-center gap-2 rounded-full bg-white/82 px-3 py-1.5 text-xs font-bold uppercase shadow-sm ring-1 ring-black/[0.08]"
+                className="inline-flex items-center gap-2 rounded-full bg-white/82 dark:bg-white/[0.06] px-3 py-1.5 text-xs font-bold uppercase shadow-sm ring-1 ring-black/[0.08] dark:ring-white/[0.08]"
                 style={{ color: project.color }}
               >
                 <span
@@ -69,7 +69,7 @@ export default function ProjectPageClient({ project }: { project: Project }) {
             </motion.h1>
 
             <motion.p
-              className="mb-9 max-w-2xl text-lg leading-8 text-[#5E6673] md:text-xl"
+              className="mb-9 max-w-2xl text-lg leading-8 text-[#5E6673] dark:text-[#a1a1aa] md:text-xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -109,7 +109,7 @@ export default function ProjectPageClient({ project }: { project: Project }) {
         </div>
 
         <motion.div
-          className="mx-auto mt-14 max-w-6xl rounded-lg border border-black/[0.08] bg-white/86 p-6 shadow-sm backdrop-blur-xl md:p-8"
+          className="mx-auto mt-14 max-w-6xl rounded-lg border border-black/[0.08] dark:border-white/[0.08] bg-white/86 dark:bg-white/[0.04] p-6 shadow-sm backdrop-blur-xl md:p-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.45 }}
@@ -119,7 +119,7 @@ export default function ProjectPageClient({ project }: { project: Project }) {
             {project.techStack.map((tech) => (
               <span
                 key={tech}
-                className="rounded-full border border-black/[0.08] bg-[#F7F8FB] px-4 py-2 text-sm font-semibold text-[#15171C]"
+                className="rounded-full border border-black/[0.08] dark:border-white/[0.1] bg-[#F7F8FB] dark:bg-white/[0.06] px-4 py-2 text-sm font-semibold text-[#15171C] dark:text-[#e4e4e7]"
               >
                 {tech}
               </span>

@@ -10,7 +10,7 @@ export default function TechStackSection() {
 
   return (
     <section ref={ref} className="px-6 py-14">
-      <div className="mx-auto max-w-6xl rounded-lg border border-black/[0.08] bg-white/78 p-5 shadow-sm backdrop-blur-xl md:p-6">
+      <div className="mx-auto max-w-6xl rounded-lg border border-black/[0.08] dark:border-white/[0.08] bg-white/78 dark:bg-white/[0.04] p-5 shadow-sm backdrop-blur-xl md:p-6">
         <motion.p
           className="mb-4 text-sm font-bold uppercase text-[#2458FF]"
           initial={{ opacity: 0 }}
@@ -28,7 +28,7 @@ export default function TechStackSection() {
           {skillsData.techStack.map((tech) => (
             <span
               key={tech}
-              className="rounded-full border border-black/[0.08] bg-[#F7F8FB] px-4 py-2 text-sm font-semibold text-[#15171C] transition-colors duration-300 hover:border-[#2458FF]/30 hover:bg-[#E9EEFF]"
+              className="rounded-full border border-black/[0.08] dark:border-white/[0.1] bg-[#F7F8FB] dark:bg-white/[0.06] px-4 py-2 text-sm font-semibold text-[#15171C] dark:text-[#e4e4e7] transition-colors duration-300 hover:border-[#2458FF]/30 hover:bg-[#E9EEFF] dark:hover:bg-[#2458FF]/15"
             >
               {tech}
             </span>

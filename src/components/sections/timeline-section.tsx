@@ -54,7 +54,7 @@ export default function TimelineSection() {
         {/* Timeline */}
         <div className="relative">
           {/* Vertical line */}
-          <div className="absolute bottom-0 left-6 top-0 w-px bg-black/[0.08] md:left-8" />
+          <div className="absolute bottom-0 left-6 top-0 w-px bg-black/[0.08] dark:bg-white/[0.08] md:left-8" />
 
           <div className="space-y-10">
             {timelineData.milestones.map((milestone, i) => (
@@ -91,20 +91,20 @@ function TimelineItem({ milestone, index }: TimelineItemProps) {
     >
       {/* Dot on timeline */}
       <div className="relative z-10 flex-shrink-0 w-12 md:w-16 flex items-start justify-center pt-1">
-        <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-black/[0.08] bg-white shadow-sm">
+        <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-black/[0.08] dark:border-white/[0.1] bg-white dark:bg-[#1a1a1f] shadow-sm">
           <IconComponent size={18} className="text-[#2458FF]" />
         </div>
       </div>
 
       {/* Content */}
-      <div className="rounded-lg border border-black/[0.08] bg-white/82 p-5 shadow-sm backdrop-blur-xl">
+      <div className="rounded-lg border border-black/[0.08] dark:border-white/[0.08] bg-white/82 dark:bg-white/[0.04] p-5 shadow-sm backdrop-blur-xl">
         <span className="text-xs font-bold uppercase text-[#2458FF]">
           {milestone.year}
         </span>
-        <h3 className="mt-1 mb-2 text-lg font-bold text-[#15171C]">
+        <h3 className="mt-1 mb-2 text-lg font-bold text-[#15171C] dark:text-white">
           {milestone.title}
         </h3>
-        <p className="text-sm leading-relaxed text-[#5E6673]">
+        <p className="text-sm leading-relaxed text-[#5E6673] dark:text-[#a1a1aa]">
           {milestone.description}
         </p>
       </div>
