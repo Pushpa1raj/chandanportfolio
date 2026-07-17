@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import HeroSection from "@/components/hero/hero-section";
+import { createContext, useContext } from "react";
 
 export default function LoadingSequence({
   children,
@@ -58,14 +58,14 @@ export default function LoadingSequence({
       <AnimatePresence>
         {phase === "loading" && (
           <motion.div
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#F5F5F7]"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#F7F8FB]"
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
           >
             {/* CK Monogram */}
             <div className="relative flex items-center justify-center">
               <motion.div
-                className="text-4xl font-bold tracking-tight text-[#1D1D1F]"
+                className="text-4xl font-bold text-[#15171C]"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
@@ -74,7 +74,7 @@ export default function LoadingSequence({
               </motion.div>
               {/* Expanding ring */}
               <motion.div
-                className="absolute w-16 h-16 rounded-full border border-[#0071E3]/30"
+                className="absolute h-16 w-16 rounded-full border border-[#2458FF]/30"
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 2.5, opacity: [0, 0.4, 0] }}
                 transition={{
@@ -83,7 +83,7 @@ export default function LoadingSequence({
                 }}
               />
               <motion.div
-                className="absolute w-16 h-16 rounded-full border border-[#0071E3]/20"
+                className="absolute h-16 w-16 rounded-full border border-[#2458FF]/20"
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 2.5, opacity: [0, 0.3, 0] }}
                 transition={{
@@ -111,9 +111,6 @@ export default function LoadingSequence({
     </>
   );
 }
-
-// Context for hero to know loading phase
-import { createContext, useContext } from "react";
 
 export const HeroPhaseContext = createContext<
   "loading" | "portrait" | "orbit" | "complete"

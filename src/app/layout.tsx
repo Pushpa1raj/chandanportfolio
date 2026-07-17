@@ -10,6 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://chandankumar.dev"),
   title: "Chandan Kumar | Portfolio",
   description:
     "Portfolio of Chandan Kumar, First Year CSE-IoT student at Techno Main Salt Lake, Kolkata. Passionate about web development, AI, and building modern digital experiences.",
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
       "Portfolio of Chandan Kumar, First Year CSE-IoT student at Techno Main Salt Lake, Kolkata. Passionate about web development, AI, and building modern digital experiences.",
     images: [
       {
-        url: "/og-image.png",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
         alt: "Chandan Kumar Portfolio",
@@ -47,7 +48,7 @@ export const metadata: Metadata = {
     title: "Chandan Kumar | Portfolio",
     description:
       "Portfolio of Chandan Kumar, First Year CSE-IoT student at Techno Main Salt Lake, Kolkata.",
-    images: ["/og-image.png"],
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,

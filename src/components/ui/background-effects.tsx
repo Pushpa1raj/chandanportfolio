@@ -1,56 +1,12 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-import { usePrefersReducedMotion } from "@/hooks/use-media-query";
-
 export default function BackgroundEffects() {
-  const canvasRef = useRef<HTMLDivElement>(null);
-  const prefersReducedMotion = usePrefersReducedMotion();
-
-  useEffect(() => {
-    if (prefersReducedMotion) return;
-    // Gradient animation is handled via CSS keyframes — no JS needed
-  }, [prefersReducedMotion]);
-
   return (
     <div
-      ref={canvasRef}
       className="fixed inset-0 pointer-events-none -z-10 overflow-hidden"
       aria-hidden="true"
     >
-      {/* Blob 1 */}
-      <div
-        className="absolute -top-[20%] -left-[10%] w-[600px] h-[600px] rounded-full opacity-[0.04]"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(0,113,227,0.4) 0%, transparent 70%)",
-          animation: prefersReducedMotion
-            ? "none"
-            : "gradient-shift 20s ease-in-out infinite",
-        }}
-      />
-      {/* Blob 2 */}
-      <div
-        className="absolute -bottom-[20%] -right-[10%] w-[700px] h-[700px] rounded-full opacity-[0.03]"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(175,82,222,0.3) 0%, transparent 70%)",
-          animation: prefersReducedMotion
-            ? "none"
-            : "gradient-shift 25s ease-in-out infinite reverse",
-        }}
-      />
-      {/* Blob 3 */}
-      <div
-        className="absolute top-[40%] left-[50%] -translate-x-1/2 w-[500px] h-[500px] rounded-full opacity-[0.025]"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(52,199,89,0.3) 0%, transparent 70%)",
-          animation: prefersReducedMotion
-            ? "none"
-            : "gradient-shift 22s ease-in-out infinite 5s",
-        }}
-      />
+      <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(36,88,255,0.08)_0%,transparent_28%,rgba(0,143,107,0.08)_54%,transparent_78%,rgba(240,109,79,0.08)_100%)]" />
+      <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-white/95 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-[#F7F8FB] to-transparent" />
     </div>
   );
 }

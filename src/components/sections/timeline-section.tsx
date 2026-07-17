@@ -24,8 +24,16 @@ export default function TimelineSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="py-32 md:py-40 px-6" ref={ref}>
+    <section className="px-6 py-24 md:py-32" ref={ref}>
       <div className="max-w-4xl mx-auto">
+        <motion.p
+          className="mb-3 text-sm font-bold uppercase text-[#2458FF]"
+          initial={{ opacity: 0, y: 12 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+        >
+          Progress
+        </motion.p>
         <motion.h2
           className="text-headline mb-4"
           initial={{ opacity: 0, y: 20 }}
@@ -40,13 +48,13 @@ export default function TimelineSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          The milestones that have shaped my path so far.
+          Milestones that shaped the way I learn, build, and collaborate.
         </motion.p>
 
         {/* Timeline */}
         <div className="relative">
           {/* Vertical line */}
-          <div className="absolute left-6 md:left-8 top-0 bottom-0 w-px bg-black/[0.06]" />
+          <div className="absolute bottom-0 left-6 top-0 w-px bg-black/[0.08] md:left-8" />
 
           <div className="space-y-10">
             {timelineData.milestones.map((milestone, i) => (
@@ -83,20 +91,20 @@ function TimelineItem({ milestone, index }: TimelineItemProps) {
     >
       {/* Dot on timeline */}
       <div className="relative z-10 flex-shrink-0 w-12 md:w-16 flex items-start justify-center pt-1">
-        <div className="w-10 h-10 rounded-xl bg-white border border-black/[0.06] flex items-center justify-center shadow-sm">
-          <IconComponent size={18} className="text-[#6E6E73]" />
+        <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-black/[0.08] bg-white shadow-sm">
+          <IconComponent size={18} className="text-[#2458FF]" />
         </div>
       </div>
 
       {/* Content */}
-      <div className="pb-2 pt-0.5">
-        <span className="text-xs font-semibold text-[#0071E3] uppercase tracking-widest">
+      <div className="rounded-lg border border-black/[0.08] bg-white/82 p-5 shadow-sm backdrop-blur-xl">
+        <span className="text-xs font-bold uppercase text-[#2458FF]">
           {milestone.year}
         </span>
-        <h3 className="text-lg font-semibold text-[#1D1D1F] mt-1 mb-2">
+        <h3 className="mt-1 mb-2 text-lg font-bold text-[#15171C]">
           {milestone.title}
         </h3>
-        <p className="text-body text-sm leading-relaxed">
+        <p className="text-sm leading-relaxed text-[#5E6673]">
           {milestone.description}
         </p>
       </div>

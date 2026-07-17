@@ -26,25 +26,37 @@ export default function SkillsSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="skills" className="py-32 md:py-40 px-6" ref={ref}>
+    <section id="skills" className="scroll-mt-24 px-6 py-24 md:py-32" ref={ref}>
       <div className="max-w-6xl mx-auto">
-        <motion.h2
-          className="text-headline mb-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-        >
-          Skills & Expertise
-        </motion.h2>
-        <motion.p
-          className="text-body mb-16 max-w-2xl"
-          initial={{ opacity: 0, y: 15 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.1 }}
-        >
-          Technologies and tools I work with to build modern digital
-          experiences.
-        </motion.p>
+        <div className="mb-12 flex flex-col justify-between gap-6 md:mb-16 md:flex-row md:items-end">
+          <div>
+            <motion.p
+              className="mb-3 text-sm font-bold uppercase text-[#008F6B]"
+              initial={{ opacity: 0, y: 12 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5 }}
+            >
+              Capabilities
+            </motion.p>
+            <motion.h2
+              className="text-headline"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6 }}
+            >
+              A practical toolkit for shipping.
+            </motion.h2>
+          </div>
+          <motion.p
+            className="text-body max-w-xl md:text-right"
+            initial={{ opacity: 0, y: 15 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            I pair frontend craft with backend fundamentals, data thinking, and
+            motion that supports the product.
+          </motion.p>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {skillsData.categories.map((category, i) => (
@@ -79,11 +91,11 @@ function SkillCard({ category, index }: SkillCardProps) {
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative rounded-2xl bg-white border border-black/[0.06] p-6 transition-all duration-400 hover:shadow-[0_4px_16px_rgba(0,0,0,0.06),0_12px_36px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 cursor-default"
+      className="group relative rounded-lg border border-black/[0.08] bg-white/86 p-6 shadow-sm backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_42px_rgba(16,24,40,0.10)]"
     >
       {/* Icon */}
       <div
-        className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-all duration-400"
+        className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg transition-all duration-300"
         style={{
           background: isHovered ? `${category.color}12` : "#F5F5F7",
           color: isHovered ? category.color : "#6E6E73",
@@ -93,7 +105,7 @@ function SkillCard({ category, index }: SkillCardProps) {
       </div>
 
       {/* Title */}
-      <h3 className="text-base font-semibold text-[#1D1D1F] mb-3">
+      <h3 className="mb-4 text-base font-bold text-[#15171C]">
         {category.title}
       </h3>
 
@@ -102,7 +114,7 @@ function SkillCard({ category, index }: SkillCardProps) {
         {category.skills.map((skill) => (
           <span
             key={skill}
-            className="px-2.5 py-1 text-xs font-medium rounded-md bg-black/[0.04] text-[#6E6E73] transition-colors duration-300 group-hover:bg-black/[0.08]"
+            className="rounded-md bg-black/[0.04] px-2.5 py-1.5 text-xs font-semibold text-[#5E6673] transition-colors duration-300 group-hover:bg-black/[0.07]"
           >
             {skill}
           </span>

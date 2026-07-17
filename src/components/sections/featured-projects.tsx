@@ -1,36 +1,49 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { ExternalLink } from "lucide-react";
+import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
-import { useRouter } from "next/navigation";
 import projectsData from "@/data/projects.json";
+import ProjectVisual from "@/components/projects/project-visual";
+import LiquidGlassLink from "@/components/ui/liquid-glass-link";
 
 export default function FeaturedProjects() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="projects" className="py-32 md:py-40 px-6" ref={ref}>
+    <section id="projects" className="scroll-mt-24 px-6 py-24 md:py-32" ref={ref}>
       <div className="max-w-6xl mx-auto">
-        <motion.h2
-          className="text-headline mb-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-        >
-          Featured Projects
-        </motion.h2>
-        <motion.p
-          className="text-body mb-16 max-w-2xl"
-          initial={{ opacity: 0, y: 15 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.1 }}
-        >
-          A selection of projects that showcase my approach to problem-solving
-          and design.
-        </motion.p>
+        <div className="mb-12 flex flex-col justify-between gap-6 md:mb-16 md:flex-row md:items-end">
+          <div>
+            <motion.p
+              className="mb-3 text-sm font-bold uppercase text-[#2458FF]"
+              initial={{ opacity: 0, y: 12 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5 }}
+            >
+              Selected work
+            </motion.p>
+            <motion.h2
+              className="text-headline"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6 }}
+            >
+              Projects with product thinking baked in.
+            </motion.h2>
+          </div>
+          <motion.p
+            className="text-body max-w-xl md:text-right"
+            initial={{ opacity: 0, y: 15 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            Focused builds across AI writing, developer productivity, and
+            connected campus systems.
+          </motion.p>
+        </div>
 
         <div className="grid grid-cols-1 gap-8">
           {projectsData.projects
@@ -52,18 +65,6 @@ interface ProjectCardProps {
 function ProjectCard({ project, index }: ProjectCardProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-60px" });
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const cardRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    setMousePos({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
-  };
 
   return (
     <motion.div
@@ -76,75 +77,46 @@ function ProjectCard({ project, index }: ProjectCardProps) {
         ease: [0.25, 0.1, 0.25, 1],
       }}
     >
-      <div
-        ref={cardRef}
-        onMouseMove={handleMouseMove}
-        onClick={() => router.push(`/projects/${project.slug}`)}
-        className="group relative rounded-3xl bg-white border border-black/[0.06] overflow-hidden transition-all duration-500 hover:shadow-[0_4px_16px_rgba(0,0,0,0.08),0_16px_48px_rgba(0,0,0,0.1)] hover:-translate-y-1 cursor-pointer"
-      >
-        {/* Moving light reflection */}
-        <div
-          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10"
-          style={{
-            background: `radial-gradient(600px circle at ${mousePos.x}px ${mousePos.y}px, rgba(255,255,255,0.15), transparent 40%)`,
-          }}
-        />
-
-        <div className="grid md:grid-cols-2 gap-0">
-          {/* Image */}
-          <div className="relative h-64 md:h-80 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
+      <article className="group overflow-hidden rounded-lg border border-black/[0.08] bg-white/86 shadow-[0_16px_48px_rgba(16,24,40,0.08)] backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(16,24,40,0.14)]">
+        <div className="grid gap-0 lg:grid-cols-[1.08fr_0.92fr]">
+          <div className="order-2 flex flex-col justify-center p-7 md:p-10 lg:order-1">
             <div
-              className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-105"
-              style={{
-                background: `linear-gradient(135deg, ${project.color}15, ${project.color}05)`,
-              }}
-            >
-              <div className="w-full h-full flex items-center justify-center">
-                <span
-                  className="text-6xl font-bold opacity-10"
-                  style={{ color: project.color }}
-                >
-                  {project.title
-                    .split(" ")
-                    .map((w) => w[0])
-                    .join("")}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Content */}
-          <div className="p-8 md:p-10 flex flex-col justify-center">
-            <div
-              className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest mb-4"
+              className="mb-5 inline-flex w-fit items-center gap-2 rounded-full bg-black/[0.04] px-3 py-1.5 text-xs font-bold uppercase"
               style={{ color: project.color }}
             >
               <span
-                className="w-2 h-2 rounded-full"
+                className="h-2 w-2 rounded-full"
                 style={{ background: project.color }}
               />
               {project.category}
             </div>
-            <h3 className="text-title mb-3">{project.title}</h3>
-            <p className="text-body mb-6">{project.description}</p>
-            <div className="flex flex-wrap gap-2 mb-6">
+            <h3 className="text-title mb-4 text-[#15171C]">{project.title}</h3>
+            <p className="text-body mb-7">{project.description}</p>
+            <div className="mb-8 flex flex-wrap gap-2">
               {project.techStack.slice(0, 4).map((tech) => (
                 <span
                   key={tech}
-                  className="px-3 py-1 text-xs font-medium rounded-full bg-black/[0.04] text-[#6E6E73]"
+                  className="rounded-full bg-black/[0.04] px-3 py-1.5 text-xs font-semibold text-[#5E6673]"
                 >
                   {tech}
                 </span>
               ))}
             </div>
-            <div className="flex items-center gap-4">
+
+            <div className="flex flex-wrap items-center gap-4">
+              <LiquidGlassLink
+                href={`/projects/${project.slug}`}
+                className="h-11 px-6 text-sm"
+              >
+                Case study
+                <ArrowUpRight size={16} />
+              </LiquidGlassLink>
               {project.github && (
                 <a
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-[#1D1D1F] hover:text-[#0071E3] transition-colors"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-[#445063] transition-colors hover:text-[#15171C]"
                 >
                   <FaGithub size={16} />
                   Source
@@ -155,8 +127,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-[#0071E3] hover:text-[#0077ED] transition-colors"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-[#2458FF] transition-colors hover:text-[#1746D8]"
                 >
                   <ExternalLink size={16} />
                   Live Demo
@@ -164,8 +135,12 @@ function ProjectCard({ project, index }: ProjectCardProps) {
               )}
             </div>
           </div>
+
+          <div className="order-1 min-h-[320px] bg-black/[0.02] p-4 md:p-6 lg:order-2">
+            <ProjectVisual project={project} />
+          </div>
         </div>
-      </div>
+      </article>
     </motion.div>
   );
 }

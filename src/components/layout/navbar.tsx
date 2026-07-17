@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import LiquidGlassLink from "@/components/ui/liquid-glass-link";
 import profileData from "@/data/profile.json";
 
 export default function Navbar() {
@@ -34,46 +35,50 @@ export default function Navbar() {
     <>
       <motion.nav
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+          "fixed left-0 right-0 top-0 z-50 px-4 py-3 transition-all duration-500",
           scrolled
-            ? "bg-white/72 backdrop-blur-2xl shadow-[0_1px_0_rgba(0,0,0,0.06)]"
-            : "bg-white/5 backdrop-blur-sm"
+            ? "bg-white/78 backdrop-blur-2xl shadow-[0_1px_0_rgba(0,0,0,0.08)]"
+            : "bg-transparent"
         )}
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, delay: 2, ease: [0.25, 0.1, 0.25, 1] }}
+        transition={{ duration: 0.55, ease: [0.25, 0.1, 0.25, 1] }}
       >
-        <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-12">
+        <div className="mx-auto flex h-12 max-w-6xl items-center justify-between rounded-full border border-black/[0.06] bg-white/72 px-4 shadow-sm backdrop-blur-xl md:px-5">
           {/* Logo */}
           <a
             href="#home"
-            className="text-sm font-semibold text-[#1D1D1F] tracking-tight hover:opacity-70 transition-opacity"
+            className="flex items-center gap-2 text-sm font-bold text-[#15171C] transition-opacity hover:opacity-75"
+            aria-label="Chandan Kumar home"
           >
-            CK
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#15171C] text-xs text-white">
+              CK
+            </span>
+            <span className="hidden sm:inline">Chandan Kumar</span>
           </a>
 
           {/* Desktop Links */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden items-center gap-1 md:flex">
             {profileData.navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="text-xs font-medium text-[#1D1D1F]/80 hover:text-[#1D1D1F] transition-colors duration-200"
+                className="rounded-full px-3 py-2 text-xs font-semibold text-[#445063] transition-colors duration-200 hover:bg-black/[0.04] hover:text-[#15171C]"
               >
                 {item.label}
               </a>
             ))}
-            <a
+            <LiquidGlassLink
               href="/resume.pdf"
-              className="text-xs font-medium text-[#0071E3] hover:text-[#0077ED] transition-colors duration-200"
+              className="ml-2 h-9 px-5 text-xs"
             >
               Resume
-            </a>
+            </LiquidGlassLink>
           </div>
 
           {/* Mobile Hamburger */}
           <button
-            className="md:hidden relative z-50 w-8 h-8 flex items-center justify-center text-[#1D1D1F]"
+            className="relative z-50 flex h-9 w-9 items-center justify-center rounded-full text-[#15171C] transition-colors hover:bg-black/[0.05] md:hidden"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
@@ -108,19 +113,19 @@ export default function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            className="fixed inset-0 z-40 bg-[#F5F5F7] flex flex-col items-center justify-center"
+            className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-[#F7F8FB]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            <nav className="flex flex-col items-center gap-8">
+            <nav className="flex flex-col items-center gap-5">
               {profileData.navItems.map((item, i) => (
                 <motion.a
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className="text-3xl font-semibold text-[#1D1D1F] tracking-tight"
+                  className="rounded-full px-5 py-2 text-3xl font-bold text-[#15171C]"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
@@ -133,10 +138,7 @@ export default function Navbar() {
                   {item.label}
                 </motion.a>
               ))}
-              <motion.a
-                href="/resume.pdf"
-                onClick={() => setMobileOpen(false)}
-                className="text-3xl font-semibold text-[#0071E3] tracking-tight"
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
@@ -146,8 +148,14 @@ export default function Navbar() {
                   ease: [0.25, 0.1, 0.25, 1],
                 }}
               >
-                Resume
-              </motion.a>
+                <LiquidGlassLink
+                  href="/resume.pdf"
+                  onClick={() => setMobileOpen(false)}
+                  className="h-12 px-8 text-2xl font-bold"
+                >
+                  Resume
+                </LiquidGlassLink>
+              </motion.div>
             </nav>
           </motion.div>
         )}

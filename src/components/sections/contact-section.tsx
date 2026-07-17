@@ -35,10 +35,18 @@ export default function ContactSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="contact" className="py-32 md:py-40 px-6" ref={ref}>
-      <div className="max-w-4xl mx-auto text-center">
+    <section id="contact" className="scroll-mt-24 px-6 py-24 md:py-32" ref={ref}>
+      <div className="mx-auto max-w-5xl overflow-hidden rounded-lg border border-black/[0.08] bg-[#15171C] p-8 text-center shadow-[0_24px_80px_rgba(16,24,40,0.18)] md:p-12">
+        <motion.p
+          className="mb-3 text-sm font-bold uppercase text-[#9DB2FF]"
+          initial={{ opacity: 0, y: 12 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+        >
+          Contact
+        </motion.p>
         <motion.h2
-          className="text-headline mb-6"
+          className="text-headline mb-6 text-white"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
@@ -49,7 +57,7 @@ export default function ContactSection() {
         </motion.h2>
 
         <motion.p
-          className="text-body text-lg mb-12 max-w-xl mx-auto"
+          className="mx-auto mb-10 max-w-xl text-lg leading-8 text-white/70"
           initial={{ opacity: 0, y: 15 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.1 }}
@@ -59,12 +67,15 @@ export default function ContactSection() {
         </motion.p>
 
         <motion.div
-          className="flex items-center justify-center mb-12"
+          className="mb-10 flex items-center justify-center"
           initial={{ opacity: 0, y: 15 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <AppleButton href={`mailto:${profileData.social.email}`}>
+          <AppleButton
+            href={`mailto:${profileData.social.email}`}
+            className="text-white"
+          >
             <Mail size={16} />
             Get in Touch
           </AppleButton>
@@ -72,7 +83,7 @@ export default function ContactSection() {
 
         {/* Social Links */}
         <motion.div
-          className="flex items-center justify-center gap-6"
+          className="flex flex-wrap items-center justify-center gap-4"
           initial={{ opacity: 0, y: 15 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.3 }}
@@ -83,12 +94,10 @@ export default function ContactSection() {
               href={link.href}
               target={link.href.startsWith("mailto") ? undefined : "_blank"}
               rel="noopener noreferrer"
-              className="group flex flex-col items-center gap-2 text-[#6E6E73] hover:text-[#1D1D1F] transition-colors duration-300"
+              className="group flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-4 py-3 text-white/70 transition-colors duration-300 hover:bg-white/[0.12] hover:text-white"
             >
-              <div className="w-12 h-12 rounded-2xl bg-white border border-black/[0.06] flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:-translate-y-0.5">
-                <link.icon size={20} />
-              </div>
-              <span className="text-xs font-medium">{link.label}</span>
+              <link.icon size={18} />
+              <span className="text-sm font-semibold">{link.label}</span>
             </a>
           ))}
         </motion.div>

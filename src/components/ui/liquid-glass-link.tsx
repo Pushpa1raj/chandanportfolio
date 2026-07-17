@@ -1,54 +1,34 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
-interface AppleButtonProps {
+interface LiquidGlassLinkProps {
   children: React.ReactNode;
-  variant?: "primary" | "secondary";
-  href?: string;
+  href: string;
   onClick?: () => void;
   className?: string;
-  magnetic?: boolean;
+  target?: string;
+  rel?: string;
 }
 
-export default function AppleButton({
+export default function LiquidGlassLink({
   children,
-  variant = "primary",
   href,
   onClick,
   className,
-}: AppleButtonProps) {
-  if (variant === "secondary") {
-    const MotionComp = href ? motion.a : motion.button;
-    return (
-      <MotionComp
-        href={href}
-        onClick={onClick}
-        className={cn(
-          "relative inline-flex min-h-11 cursor-pointer select-none items-center justify-center gap-2 overflow-hidden whitespace-nowrap rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300",
-          "border border-black/[0.08] bg-white/80 text-[#15171C] shadow-sm hover:border-black/[0.16] hover:bg-white",
-          "[&_svg]:pointer-events-none [&_svg]:shrink-0",
-          className
-        )}
-        transition={{ type: "spring", stiffness: 400, damping: 17 }}
-      >
-        {children}
-      </MotionComp>
-    );
-  }
-
-  const MotionComp = href ? motion.a : motion.button;
-
+  target,
+  rel,
+}: LiquidGlassLinkProps) {
   return (
-    <MotionComp
+    <motion.a
       href={href}
       onClick={onClick}
+      target={target}
+      rel={rel}
       className={cn(
-        "relative inline-flex min-h-11 cursor-pointer select-none items-center justify-center gap-2 whitespace-nowrap rounded-full px-6 py-3 text-sm font-semibold",
+        "relative inline-flex cursor-pointer select-none items-center justify-center gap-2 whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-semibold",
         "bg-transparent text-[#15171C] transition-all duration-300 hover:scale-105",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40",
-        "disabled:pointer-events-none disabled:opacity-50",
         "[&_svg]:pointer-events-none [&_svg]:shrink-0",
         className
       )}
@@ -57,11 +37,7 @@ export default function AppleButton({
       {/* Glass shadow ring */}
       <div
         aria-hidden
-        className={cn(
-          "absolute top-0 left-0 z-0 h-full w-full rounded-full",
-          "shadow-[0_0_6px_rgba(0,0,0,0.03),0_2px_6px_rgba(0,0,0,0.08),inset_3px_3px_0.5px_-3px_rgba(0,0,0,0.9),inset_-3px_-3px_0.5px_-3px_rgba(0,0,0,0.85),inset_1px_1px_1px_-0.5px_rgba(0,0,0,0.6),inset_-1px_-1px_1px_-0.5px_rgba(0,0,0,0.6),inset_0_0_6px_6px_rgba(0,0,0,0.12),inset_0_0_2px_2px_rgba(0,0,0,0.06),0_0_12px_rgba(255,255,255,0.15)]",
-          "transition-all"
-        )}
+        className="absolute top-0 left-0 z-0 h-full w-full rounded-full shadow-[0_0_6px_rgba(0,0,0,0.03),0_2px_6px_rgba(0,0,0,0.08),inset_3px_3px_0.5px_-3px_rgba(0,0,0,0.9),inset_-3px_-3px_0.5px_-3px_rgba(0,0,0,0.85),inset_1px_1px_1px_-0.5px_rgba(0,0,0,0.6),inset_-1px_-1px_1px_-0.5px_rgba(0,0,0,0.6),inset_0_0_6px_6px_rgba(0,0,0,0.12),inset_0_0_2px_2px_rgba(0,0,0,0.06),0_0_12px_rgba(255,255,255,0.15)] transition-all"
       />
       {/* Backdrop blur via SVG filter */}
       <div
@@ -71,12 +47,12 @@ export default function AppleButton({
       />
       {/* Content */}
       <span className="pointer-events-none z-10">{children}</span>
-      <LiquidGlassFilter />
-    </MotionComp>
+      <LiquidGlassFilterSVG />
+    </motion.a>
   );
 }
 
-function LiquidGlassFilter() {
+export function LiquidGlassFilterSVG() {
   return (
     <svg className="hidden" aria-hidden>
       <defs>

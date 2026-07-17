@@ -1,309 +1,197 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import {
-  FaReact,
-  FaGithub,
-  FaNodeJs,
-  FaFigma,
-} from "react-icons/fa";
-import {
-  SiTypescript,
-  SiMongodb,
-  SiNextdotjs,
-} from "react-icons/si";
-import { Brain } from "lucide-react";
-import { useMousePosition } from "@/hooks/use-mouse-position";
-import { useIsMobile, usePrefersReducedMotion } from "@/hooks/use-media-query";
+import { ArrowRight, Brain, FileText, MapPin, Sparkles } from "lucide-react";
+import { FaFigma, FaGithub, FaNodeJs, FaReact } from "react-icons/fa";
+import { SiMongodb, SiNextdotjs, SiTypescript } from "react-icons/si";
 import AppleButton from "@/components/ui/apple-button";
+import { useIsMobile, usePrefersReducedMotion } from "@/hooks/use-media-query";
+import { useMousePosition } from "@/hooks/use-mouse-position";
+import profileData from "@/data/profile.json";
 
 const ORBIT_ICONS = [
-  { Icon: FaReact, name: "React", color: "#61DAFB", section: "skills" },
-  { Icon: FaGithub, name: "GitHub", color: "#1D1D1F", section: "projects" },
-  { Icon: SiTypescript, name: "TypeScript", color: "#3178C6", section: "skills" },
-  { Icon: FaNodeJs, name: "Node.js", color: "#339933", section: "skills" },
-  { Icon: SiMongodb, name: "MongoDB", color: "#47A248", section: "skills" },
-  { Icon: SiNextdotjs, name: "Next.js", color: "#000000", section: "skills" },
-  { Icon: FaFigma, name: "Figma", color: "#F24E1E", section: "skills" },
-  { Icon: Brain, name: "AI", color: "#FF2D55", section: "skills" },
+  { Icon: FaReact, name: "React", color: "#11A8CD" },
+  { Icon: SiNextdotjs, name: "Next.js", color: "#15171C" },
+  { Icon: SiTypescript, name: "TypeScript", color: "#3178C6" },
+  { Icon: FaNodeJs, name: "Node.js", color: "#339933" },
+  { Icon: SiMongodb, name: "MongoDB", color: "#008F6B" },
+  { Icon: Brain, name: "AI", color: "#E34C7B" },
+  { Icon: FaFigma, name: "Figma", color: "#F06D4F" },
+  { Icon: FaGithub, name: "GitHub", color: "#15171C" },
+];
+
+const heroStats = [
+  { value: "3+", label: "Flagship builds" },
+  { value: "6", label: "Skill domains" },
+  { value: "2026+", label: "Open to internships" },
 ];
 
 export default function HeroSection() {
-  const [phase, setPhase] = useState<"hidden" | "portrait" | "icons" | "orbit" | "text" | "complete">("hidden");
   const [hoveredIcon, setHoveredIcon] = useState<number | null>(null);
   const mouse = useMousePosition();
   const isMobile = useIsMobile();
   const prefersReducedMotion = usePrefersReducedMotion();
-  const orbitRef = useRef<HTMLDivElement>(null);
-  const breatheRef = useRef(0);
 
-  // Cinematic sequence timing
-  useEffect(() => {
-    const timers: NodeJS.Timeout[] = [];
-    timers.push(setTimeout(() => setPhase("portrait"), 200));
-    timers.push(setTimeout(() => setPhase("icons"), 600));
-    timers.push(setTimeout(() => setPhase("orbit"), 1200));
-    timers.push(setTimeout(() => setPhase("text"), 1600));
-    timers.push(setTimeout(() => setPhase("complete"), 2200));
-
-    return () => timers.forEach(clearTimeout);
-  }, []);
-
-  // Orbit breathing effect
-  useEffect(() => {
-    if (prefersReducedMotion) return;
-    const interval = setInterval(() => {
-      breatheRef.current = breatheRef.current === 0 ? 1 : 0;
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [prefersReducedMotion]);
-
-  // Scroll lock during loading
-  useEffect(() => {
-    if (phase !== "complete") {
-      document.body.classList.add("scroll-locked");
-    } else {
-      document.body.classList.remove("scroll-locked");
-    }
-    return () => document.body.classList.remove("scroll-locked");
-  }, [phase]);
-
-  // Mouse tilt (max 6°)
-  const tiltX = isMobile || prefersReducedMotion ? 0 : mouse.normalizedY * -6;
-  const tiltY = isMobile || prefersReducedMotion ? 0 : mouse.normalizedX * 6;
-
-  const orbitRadius = isMobile ? 120 : 180;
-
-  const getIconPosition = useCallback(
-    (index: number) => {
-      const angle = (index / ORBIT_ICONS.length) * Math.PI * 2 - Math.PI / 2;
-      return {
-        x: Math.cos(angle) * orbitRadius,
-        y: Math.sin(angle) * orbitRadius,
-      };
-    },
-    [orbitRadius]
-  );
+  const tiltX = isMobile || prefersReducedMotion ? 0 : mouse.normalizedY * -4;
+  const tiltY = isMobile || prefersReducedMotion ? 0 : mouse.normalizedX * 4;
+  const orbitRadius = isMobile ? 104 : 146;
 
   return (
     <section
       id="home"
-      className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-20 overflow-hidden"
+      className="relative min-h-screen overflow-hidden px-6 pb-16 pt-24 md:pt-28"
     >
-      {/* Orbit Container */}
-      <div
-        className="relative flex items-center justify-center mb-12"
-        style={{
-          perspective: "1200px",
-        }}
-      >
-        <div
-          ref={orbitRef}
-          className="relative flex items-center justify-center"
+      <div className="mx-auto grid min-h-[calc(100vh-7rem)] max-w-6xl items-center gap-12 lg:grid-cols-[1.02fr_0.98fr]">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+        >
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-black/[0.08] bg-white/80 px-4 py-2 text-sm font-medium text-[#445063] shadow-sm backdrop-blur-xl">
+            <span className="flex h-2 w-2 rounded-full bg-[#008F6B]" />
+            Available for projects and internships
+          </div>
+
+          <h1 className="text-hero max-w-4xl">
+            Chandan Kumar builds web, AI, and IoT experiences.
+          </h1>
+
+          <p className="mt-5 max-w-2xl text-lg leading-8 text-[#5E6673]">
+            {profileData.title} at {profileData.education.institution}, focused
+            on polished interfaces, AI workflows, and connected systems.
+          </p>
+
+          <div className="mt-6 flex flex-wrap items-center gap-3 text-sm font-medium text-[#5E6673]">
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/80 px-3 py-2 shadow-sm ring-1 ring-black/[0.06]">
+              <MapPin size={15} />
+              {profileData.location}
+            </span>
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/80 px-3 py-2 shadow-sm ring-1 ring-black/[0.06]">
+              <Sparkles size={15} />
+              {profileData.education.degree} {profileData.education.branch}
+            </span>
+          </div>
+
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <AppleButton href="#projects">
+              View Projects
+              <ArrowRight size={16} />
+            </AppleButton>
+            <AppleButton variant="secondary" href="/resume.pdf">
+              <FileText size={16} />
+              Resume
+            </AppleButton>
+          </div>
+
+          <div className="mt-9 grid max-w-2xl grid-cols-3 divide-x divide-black/[0.08] overflow-hidden rounded-lg border border-black/[0.08] bg-white/72 shadow-sm backdrop-blur-xl">
+            {heroStats.map((stat) => (
+              <div key={stat.label} className="p-4 md:p-5">
+                <p className="text-2xl font-bold leading-none text-[#15171C]">
+                  {stat.value}
+                </p>
+                <p className="mt-2 text-xs font-medium leading-5 text-[#5E6673]">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          className="relative mx-auto flex aspect-square w-full max-w-[430px] items-center justify-center"
+          initial={{ opacity: 0, scale: 0.95, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
           style={{
             transform: `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`,
-            transition: "transform 0.15s ease-out",
+            transition: "transform 160ms ease-out",
           }}
         >
-          {/* Portrait */}
-          <motion.div
-            className="relative z-10 w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden bg-gradient-to-b from-gray-200 to-gray-300 flex items-center justify-center shadow-xl"
-            initial={{ opacity: 0, scale: 0.6 }}
-            animate={
-              phase !== "hidden"
-                ? { opacity: 1, scale: 1 }
-                : {}
-            }
-            transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-          >
-            {/* Placeholder portrait — replace with actual image */}
-            <div className="w-full h-full bg-gradient-to-br from-gray-300 via-gray-200 to-gray-400 flex items-center justify-center">
-              <span className="text-3xl md:text-4xl font-bold text-white/80 select-none">
-                CK
-              </span>
-            </div>
-          </motion.div>
+          <div className="absolute inset-0 rounded-lg border border-black/[0.08] bg-white/58 shadow-[0_24px_80px_rgba(16,24,40,0.12)] backdrop-blur-xl" />
+          <div className="absolute inset-6 rounded-lg border border-dashed border-black/[0.08]" />
+          <div className="absolute inset-14 rounded-lg border border-black/[0.06]" />
 
-          {/* Orbit Ring (visual guide) */}
           <motion.div
-            className="absolute rounded-full border border-black/[0.04]"
-            style={{
-              width: orbitRadius * 2 + 40,
-              height: orbitRadius * 2 + 40,
-            }}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={
-              phase === "orbit" || phase === "text" || phase === "complete"
-                ? { opacity: 1, scale: 1 }
-                : {}
-            }
-            transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-          />
-
-          {/* Orbiting Icons */}
-          <div
-            className="absolute inset-0 flex items-center justify-center"
-            style={{
-              animation:
-                !prefersReducedMotion &&
-                (phase === "orbit" || phase === "text" || phase === "complete")
-                  ? "orbit-rotate 15s linear infinite, orbit-breathe 8s ease-in-out infinite"
-                  : "none",
-            }}
+            className="absolute inset-0"
+            animate={prefersReducedMotion ? {} : { rotate: 360 }}
+            transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
           >
-            {ORBIT_ICONS.map((item, i) => {
-              const pos = getIconPosition(i);
-              const isHovered = hoveredIcon === i;
+            {ORBIT_ICONS.map((item, index) => {
+              const angle = (index / ORBIT_ICONS.length) * Math.PI * 2 - Math.PI / 2;
+              const x = Math.cos(angle) * orbitRadius;
+              const y = Math.sin(angle) * orbitRadius;
+              const isHovered = hoveredIcon === index;
               const hasHover = hoveredIcon !== null;
 
               return (
                 <motion.div
                   key={item.name}
-                  className="absolute cursor-pointer"
-                  style={{
-                    left: "50%",
-                    top: "50%",
-                  }}
-                  initial={{ opacity: 0, x: 0, y: 0, scale: 0 }}
-                  animate={
-                    phase === "icons" ||
-                    phase === "orbit" ||
-                    phase === "text" ||
-                    phase === "complete"
-                      ? {
-                          opacity: hasHover && !isHovered ? 0.3 : 1,
-                          x: pos.x - 20,
-                          y: pos.y - 20,
-                          scale: isHovered ? 1.25 : 1,
-                        }
-                      : {}
-                  }
-                  transition={{
-                    opacity: { duration: 0.3 },
-                    x: { duration: 0.6, delay: i * 0.06, ease: [0.25, 0.1, 0.25, 1] },
-                    y: { duration: 0.6, delay: i * 0.06, ease: [0.25, 0.1, 0.25, 1] },
-                    scale: {
-                      type: "spring",
-                      stiffness: 300,
-                      damping: 20,
-                    },
-                  }}
-                  onMouseEnter={() => setHoveredIcon(i)}
+                  className="absolute left-1/2 top-1/2"
+                  style={{ x: x - 22, y: y - 22 }}
+                  animate={{ scale: isHovered ? 1.12 : 1, opacity: hasHover && !isHovered ? 0.42 : 1 }}
+                  onMouseEnter={() => setHoveredIcon(index)}
                   onMouseLeave={() => setHoveredIcon(null)}
                 >
-                  <div
-                    className="flex flex-col items-center"
-                    style={{
-                      // Counter-rotate to keep icons upright
-                      animation:
-                        !prefersReducedMotion &&
-                        (phase === "orbit" || phase === "text" || phase === "complete")
-                          ? "orbit-rotate 15s linear infinite reverse"
-                          : "none",
-                    }}
+                  <motion.div
+                    className="relative flex h-11 w-11 items-center justify-center rounded-lg border border-black/[0.08] bg-white shadow-[0_10px_24px_rgba(16,24,40,0.10)]"
+                    animate={prefersReducedMotion ? {} : { rotate: -360 }}
+                    transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
                   >
-                    <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center bg-white shadow-md transition-shadow duration-300"
-                      style={{
-                        boxShadow: isHovered
-                          ? `0 0 20px 4px ${item.color}30, 0 4px 12px rgba(0,0,0,0.1)`
-                          : "0 2px 8px rgba(0,0,0,0.08)",
-                        filter: hasHover && !isHovered ? "blur(1px)" : "none",
-                      }}
-                    >
-                      <item.Icon
-                        size={20}
-                        color={item.color}
-                      />
-                    </div>
-                    {/* Tooltip */}
+                    <item.Icon size={20} color={item.color} />
+                    <span className="sr-only">{item.name}</span>
                     <motion.span
-                      className="absolute -bottom-6 text-xs font-medium text-[#6E6E73] whitespace-nowrap"
-                      initial={{ opacity: 0, y: -4 }}
-                      animate={isHovered ? { opacity: 1, y: 0 } : { opacity: 0, y: -4 }}
-                      transition={{ duration: 0.2 }}
+                      className="absolute top-12 whitespace-nowrap rounded-md bg-[#15171C] px-2 py-1 text-xs font-medium text-white shadow-sm"
+                      initial={false}
+                      animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : -4 }}
+                      transition={{ duration: 0.18 }}
                     >
                       {item.name}
                     </motion.span>
-                  </div>
+                  </motion.div>
                 </motion.div>
               );
             })}
+          </motion.div>
+
+          <div className="relative z-10 w-[58%] rounded-lg border border-black/[0.08] bg-white p-5 shadow-[0_18px_44px_rgba(16,24,40,0.14)]">
+            <div className="flex items-center justify-between border-b border-black/[0.06] pb-4">
+              <div>
+                <p className="text-xs font-semibold uppercase text-[#5E6673]">
+                  Portfolio OS
+                </p>
+                <p className="mt-1 text-xl font-bold leading-none text-[#15171C]">
+                  CK
+                </p>
+              </div>
+              <div className="rounded-full bg-[#E9EEFF] px-3 py-1 text-xs font-semibold text-[#2458FF]">
+                Live
+              </div>
+            </div>
+
+            <div className="mt-5 space-y-3">
+              {[
+                ["AI tools", "92%"],
+                ["Web apps", "88%"],
+                ["IoT ideas", "76%"],
+              ].map(([label, value]) => (
+                <div key={label}>
+                  <div className="mb-1 flex items-center justify-between text-xs font-medium text-[#5E6673]">
+                    <span>{label}</span>
+                    <span>{value}</span>
+                  </div>
+                  <div className="h-2 rounded-full bg-black/[0.06]">
+                    <div
+                      className="h-full rounded-full bg-[#2458FF]"
+                      style={{ width: value }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </div>
-
-      {/* Hero Text */}
-      <div className="text-center max-w-3xl mx-auto">
-        <motion.p
-          className="text-lg md:text-xl text-[#6E6E73] mb-3 font-medium"
-          initial={{ opacity: 0, y: 20 }}
-          animate={
-            phase === "text" || phase === "complete"
-              ? { opacity: 1, y: 0 }
-              : {}
-          }
-          transition={{ duration: 0.6, delay: 0, ease: [0.25, 0.1, 0.25, 1] }}
-        >
-          Hello, I&apos;m
-        </motion.p>
-
-        <motion.h1
-          className="text-hero mb-5"
-          initial={{ opacity: 0, y: 20 }}
-          animate={
-            phase === "text" || phase === "complete"
-              ? { opacity: 1, y: 0 }
-              : {}
-          }
-          transition={{ duration: 0.6, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-        >
-          Chandan Kumar.
-        </motion.h1>
-
-        <motion.p
-          className="text-body text-lg md:text-xl max-w-xl mx-auto mb-10"
-          initial={{ opacity: 0, y: 20 }}
-          animate={
-            phase === "text" || phase === "complete"
-              ? { opacity: 1, y: 0 }
-              : {}
-          }
-          transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-        >
-          Building thoughtful digital experiences with code and creativity.
-        </motion.p>
-
-        {/* CTA Buttons */}
-        <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={phase === "complete" ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-        >
-          <AppleButton href="#projects">View Projects</AppleButton>
-          <AppleButton variant="secondary" href="/resume.pdf">
-            Resume
-          </AppleButton>
         </motion.div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        initial={{ opacity: 0 }}
-        animate={phase === "complete" ? { opacity: 1 } : {}}
-        transition={{ duration: 0.6, delay: 0.6 }}
-      >
-        <motion.div
-          className="w-6 h-10 rounded-full border-2 border-black/10 flex items-start justify-center p-1.5"
-          animate={{ y: [0, 4, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <div className="w-1 h-2 rounded-full bg-black/20" />
-        </motion.div>
-      </motion.div>
     </section>
   );
 }
