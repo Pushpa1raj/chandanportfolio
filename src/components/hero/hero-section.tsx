@@ -1,25 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight, Brain, FileText, MapPin, Sparkles } from "lucide-react";
-import { FaFigma, FaGithub, FaNodeJs, FaReact } from "react-icons/fa";
-import { SiMongodb, SiNextdotjs, SiTypescript } from "react-icons/si";
+import { ArrowRight, Code2, FileText, MapPin, Sparkles, Trophy } from "lucide-react";
+import { FaReact } from "react-icons/fa";
 import AppleButton from "@/components/ui/apple-button";
-import { useIsMobile, usePrefersReducedMotion } from "@/hooks/use-media-query";
-import { useMousePosition } from "@/hooks/use-mouse-position";
+import { usePrefersReducedMotion } from "@/hooks/use-media-query";
 import profileData from "@/data/profile.json";
-
-const ORBIT_ICONS = [
-  { Icon: FaReact, name: "React", color: "#11A8CD" },
-  { Icon: SiNextdotjs, name: "Next.js", color: "#15171C", darkColor: "#ffffff" },
-  { Icon: SiTypescript, name: "TypeScript", color: "#3178C6" },
-  { Icon: FaNodeJs, name: "Node.js", color: "#339933" },
-  { Icon: SiMongodb, name: "MongoDB", color: "#008F6B" },
-  { Icon: Brain, name: "AI", color: "#E34C7B" },
-  { Icon: FaFigma, name: "Figma", color: "#F06D4F" },
-  { Icon: FaGithub, name: "GitHub", color: "#15171C", darkColor: "#ffffff" },
-];
 
 const heroStats = [
   { value: "3+", label: "Flagship builds" },
@@ -27,22 +14,98 @@ const heroStats = [
   { value: "2026+", label: "Open to internships" },
 ];
 
-export default function HeroSection() {
-  const [hoveredIcon, setHoveredIcon] = useState<number | null>(null);
-  const mouse = useMousePosition();
-  const isMobile = useIsMobile();
-  const prefersReducedMotion = usePrefersReducedMotion();
+/* Floating badges for hero image */
+const FLOATING_BADGES_MOBILE = [
+  {
+    icon: <Trophy size={14} className="text-amber-500" />,
+    label: "Winner",
+    sublabel: "SkillDe Hackathon\n2025",
+    position: "top-[8%] right-[4%]",
+    delay: 0.3,
+  },
+  {
+    icon: <Sparkles size={14} className="text-[#2458FF]" />,
+    label: "AI",
+    sublabel: "Enthusiast",
+    position: "top-[28%] right-[0%]",
+    delay: 0.45,
+  },
+  {
+    icon: <Code2 size={14} className="text-[#2458FF]" />,
+    label: "Full Stack",
+    sublabel: "Developer",
+    position: "left-[0%] top-[38%]",
+    delay: 0.5,
+  },
+  {
+    icon: <FaReact size={14} className="text-[#11A8CD]" />,
+    label: "React",
+    sublabel: "Developer",
+    position: "left-[0%] bottom-[22%]",
+    delay: 0.6,
+  },
+  {
+    icon: <span className="text-[13px] font-bold text-[#15171C] dark:text-white">N</span>,
+    label: "Next.js",
+    sublabel: "Developer",
+    position: "right-[4%] bottom-[14%]",
+    delay: 0.7,
+  },
+];
 
-  const tiltX = isMobile || prefersReducedMotion ? 0 : mouse.normalizedY * -4;
-  const tiltY = isMobile || prefersReducedMotion ? 0 : mouse.normalizedX * 4;
-  const orbitRadius = isMobile ? 104 : 146;
+const FLOATING_BADGES_DESKTOP = [
+  {
+    icon: <Trophy size={16} className="text-amber-500" />,
+    label: "Winner",
+    sublabel: "SkillDe Hackathon 2025",
+    position: "top-[6%] right-[-4%]",
+    delay: 0.3,
+  },
+  {
+    icon: <Sparkles size={16} className="text-[#2458FF]" />,
+    label: "AI",
+    sublabel: "Enthusiast",
+    position: "top-[30%] right-[-8%]",
+    delay: 0.45,
+  },
+  {
+    icon: <Code2 size={16} className="text-[#2458FF]" />,
+    label: "Full Stack",
+    sublabel: "Developer",
+    position: "left-[-6%] top-[22%]",
+    delay: 0.5,
+  },
+  {
+    icon: <FaReact size={16} className="text-[#11A8CD]" />,
+    label: "React",
+    sublabel: "Developer",
+    position: "left-[-6%] bottom-[28%]",
+    delay: 0.6,
+  },
+  {
+    icon: <span className="text-[15px] font-bold text-[#15171C] dark:text-white">N</span>,
+    label: "Next.js",
+    sublabel: "Developer",
+    position: "right-[-4%] bottom-[16%]",
+    delay: 0.7,
+  },
+];
+
+export default function HeroSection() {
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   return (
     <section
       id="home"
-      className="relative min-h-screen overflow-hidden px-6 pb-16 pt-24 md:pt-28"
+      className="relative min-h-screen overflow-hidden px-6 pb-16 pt-20 md:pt-28"
     >
-      <div className="mx-auto grid min-h-[calc(100vh-7rem)] max-w-6xl items-center gap-12 lg:grid-cols-[1.02fr_0.98fr]">
+      {/* ===== MOBILE HERO ===== */}
+      <div className="md:hidden">
+        <MobileHero prefersReducedMotion={prefersReducedMotion} />
+      </div>
+
+      {/* ===== DESKTOP HERO ===== */}
+      <div className="mx-auto hidden min-h-[calc(100vh-7rem)] max-w-6xl items-center gap-12 md:grid lg:grid-cols-[1.02fr_0.98fr]">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -98,100 +161,209 @@ export default function HeroSection() {
           </div>
         </motion.div>
 
+        {/* Desktop hero image with floating badges */}
         <motion.div
-          className="relative mx-auto flex aspect-square w-full max-w-[430px] items-center justify-center"
+          className="relative mx-auto flex w-full max-w-[480px] items-center justify-center"
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
-          style={{
-            transform: `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`,
-            transition: "transform 160ms ease-out",
-          }}
         >
-          <div className="absolute inset-0 rounded-lg border border-black/[0.08] dark:border-white/[0.08] bg-white/58 dark:bg-white/[0.04] shadow-[0_24px_80px_rgba(16,24,40,0.12)] dark:shadow-[0_24px_80px_rgba(0,0,0,0.4)] backdrop-blur-xl" />
-          <div className="absolute inset-6 rounded-lg border border-dashed border-black/[0.08] dark:border-white/[0.06]" />
-          <div className="absolute inset-14 rounded-lg border border-black/[0.06] dark:border-white/[0.05]" />
+          {/* Soft radial glow behind image */}
+          <div
+            className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[110%] w-[90%] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-40"
+            style={{
+              background:
+                "radial-gradient(ellipse at center, rgba(36,88,255,0.12) 0%, rgba(36,88,255,0.04) 45%, transparent 70%)",
+            }}
+          />
 
-          <motion.div
-            className="absolute inset-0"
-            animate={prefersReducedMotion ? {} : { rotate: 360 }}
-            transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
-          >
-            {ORBIT_ICONS.map((item, index) => {
-              const angle = (index / ORBIT_ICONS.length) * Math.PI * 2 - Math.PI / 2;
-              const x = Math.cos(angle) * orbitRadius;
-              const y = Math.sin(angle) * orbitRadius;
-              const isHovered = hoveredIcon === index;
-              const hasHover = hoveredIcon !== null;
-
-              return (
-                <motion.div
-                  key={item.name}
-                  className="absolute left-1/2 top-1/2"
-                  style={{ x: x - 22, y: y - 22 }}
-                  animate={{ scale: isHovered ? 1.12 : 1, opacity: hasHover && !isHovered ? 0.42 : 1 }}
-                  onMouseEnter={() => setHoveredIcon(index)}
-                  onMouseLeave={() => setHoveredIcon(null)}
-                >
-                  <motion.div
-                    className="relative flex h-11 w-11 items-center justify-center rounded-lg border border-black/[0.08] dark:border-white/[0.1] bg-white dark:bg-[#1a1a1f] shadow-[0_10px_24px_rgba(16,24,40,0.10)] dark:shadow-[0_10px_24px_rgba(0,0,0,0.3)]"
-                    animate={prefersReducedMotion ? {} : { rotate: -360 }}
-                    transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
-                  >
-                    <item.Icon size={20} className={`text-[${item.color}] dark:text-[${item.darkColor || item.color}]`} style={{ color: item.color }} />
-                    <span className="sr-only">{item.name}</span>
-                    <motion.span
-                      className="absolute top-12 whitespace-nowrap rounded-md bg-[#15171C] dark:bg-white px-2 py-1 text-xs font-medium text-white dark:text-[#15171C] shadow-sm"
-                      initial={false}
-                      animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : -4 }}
-                      transition={{ duration: 0.18 }}
-                    >
-                      {item.name}
-                    </motion.span>
-                  </motion.div>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-
-          <div className="relative z-10 w-[58%] rounded-lg border border-black/[0.08] dark:border-white/[0.1] bg-white dark:bg-[#1a1a1f] p-5 shadow-[0_18px_44px_rgba(16,24,40,0.14)] dark:shadow-[0_18px_44px_rgba(0,0,0,0.4)]">
-            <div className="flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.08] pb-4">
-              <div>
-                <p className="text-xs font-semibold uppercase text-[#5E6673] dark:text-[#a1a1aa]">
-                  Portfolio OS
-                </p>
-                <p className="mt-1 text-xl font-bold leading-none text-[#15171C] dark:text-white">
-                  CK
-                </p>
-              </div>
-              <div className="rounded-full bg-[#E9EEFF] dark:bg-[#2458FF]/20 px-3 py-1 text-xs font-semibold text-[#2458FF]">
-                Live
-              </div>
-            </div>
-
-            <div className="mt-5 space-y-3">
-              {[
-                ["AI tools", "92%"],
-                ["Web apps", "88%"],
-                ["IoT ideas", "76%"],
-              ].map(([label, value]) => (
-                <div key={label}>
-                  <div className="mb-1 flex items-center justify-between text-xs font-medium text-[#5E6673] dark:text-[#a1a1aa]">
-                    <span>{label}</span>
-                    <span>{value}</span>
-                  </div>
-                  <div className="h-2 rounded-full bg-black/[0.06] dark:bg-white/[0.1]">
-                    <div
-                      className="h-full rounded-full bg-[#2458FF]"
-                      style={{ width: value }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
+          {/* Decorative concentric arcs */}
+          <div className="pointer-events-none absolute left-1/2 top-[45%] -z-10 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2">
+            <div className="absolute inset-0 rounded-full border border-black/[0.04] dark:border-white/[0.04]" />
+            <div className="absolute inset-[36px] rounded-full border border-dashed border-black/[0.05] dark:border-white/[0.05]" />
+            <div className="absolute inset-[72px] rounded-full border border-black/[0.03] dark:border-white/[0.03]" />
           </div>
+
+          {/* Person cutout */}
+          <div className="relative mx-auto w-[85%]">
+            <Image
+              src="/Subject.png"
+              alt="Chandan Kumar"
+              width={600}
+              height={750}
+              priority
+              className="relative z-10 h-auto w-full object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.12)]"
+            />
+          </div>
+
+          {/* Floating skill badges */}
+          {FLOATING_BADGES_DESKTOP.map((badge, i) => (
+            <motion.div
+              key={badge.label + badge.sublabel}
+              className={`absolute z-20 ${badge.position}`}
+              initial={{ opacity: 0, scale: 0.7, y: 12 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{
+                duration: 0.5,
+                delay: badge.delay,
+                ease: [0.25, 0.1, 0.25, 1],
+              }}
+            >
+              <motion.div
+                className="flex items-start gap-2.5 rounded-xl border border-black/[0.06] dark:border-white/[0.08] bg-white/90 dark:bg-[#1a1a1f]/90 px-3.5 py-2.5 shadow-[0_8px_24px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_24px_rgba(0,0,0,0.3)] backdrop-blur-md"
+                animate={
+                  prefersReducedMotion
+                    ? {}
+                    : {
+                        y: [0, i % 2 === 0 ? -8 : 8, 0],
+                      }
+                }
+                transition={{
+                  duration: 3 + i * 0.4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
+                <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#F0F4FF] dark:bg-white/[0.08]">
+                  {badge.icon}
+                </span>
+                <div className="leading-tight">
+                  <p className="text-xs font-bold text-[#15171C] dark:text-white">
+                    {badge.label}
+                  </p>
+                  <p className="whitespace-pre-line text-[11px] font-medium text-[#5E6673] dark:text-[#a1a1aa]">
+                    {badge.sublabel}
+                  </p>
+                </div>
+              </motion.div>
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </section>
+  );
+}
+
+/* =========================================================
+   MOBILE HERO — cutout image + floating badges layout
+   ========================================================= */
+
+function MobileHero({ prefersReducedMotion }: { prefersReducedMotion: boolean }) {
+  return (
+    <div className="flex min-h-[calc(100dvh-5rem)] flex-col items-center justify-center">
+      {/* Image area with floating badges */}
+      <motion.div
+        className="relative mx-auto w-full max-w-[380px]"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+      >
+        {/* Soft radial glow behind image */}
+        <div
+          className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[110%] w-[90%] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-40"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, rgba(36,88,255,0.12) 0%, rgba(36,88,255,0.04) 45%, transparent 70%)",
+          }}
+        />
+
+        {/* Decorative concentric arcs */}
+        <div className="pointer-events-none absolute left-1/2 top-[45%] -z-10 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2">
+          <div className="absolute inset-0 rounded-full border border-black/[0.04] dark:border-white/[0.04]" />
+          <div className="absolute inset-[30px] rounded-full border border-dashed border-black/[0.05] dark:border-white/[0.05]" />
+          <div className="absolute inset-[60px] rounded-full border border-black/[0.03] dark:border-white/[0.03]" />
+        </div>
+
+        {/* Person cutout */}
+        <div className="relative mx-auto w-[88%]">
+          <Image
+            src="/Subject.png"
+            alt="Chandan Kumar"
+            width={600}
+            height={750}
+            priority
+            className="relative z-10 h-auto w-full object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.12)]"
+          />
+        </div>
+
+        {/* Floating skill badges */}
+        {FLOATING_BADGES_MOBILE.map((badge, i) => (
+          <motion.div
+            key={badge.label + badge.sublabel}
+            className={`absolute z-20 ${badge.position}`}
+            initial={{ opacity: 0, scale: 0.7, y: 12 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{
+              duration: 0.5,
+              delay: badge.delay,
+              ease: [0.25, 0.1, 0.25, 1],
+            }}
+          >
+            <motion.div
+              className="flex items-start gap-2 rounded-xl border border-black/[0.06] dark:border-white/[0.08] bg-white/90 dark:bg-[#1a1a1f]/90 px-3 py-2 shadow-[0_8px_24px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_24px_rgba(0,0,0,0.3)] backdrop-blur-md"
+              animate={
+                prefersReducedMotion
+                  ? {}
+                  : {
+                      y: [0, i % 2 === 0 ? -6 : 6, 0],
+                    }
+              }
+              transition={{
+                duration: 3 + i * 0.4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-[#F0F4FF] dark:bg-white/[0.08]">
+                {badge.icon}
+              </span>
+              <div className="leading-tight">
+                <p className="text-[11px] font-bold text-[#15171C] dark:text-white">
+                  {badge.label}
+                </p>
+                <p className="whitespace-pre-line text-[10px] font-medium text-[#5E6673] dark:text-[#a1a1aa]">
+                  {badge.sublabel}
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        ))}
+      </motion.div>
+
+      {/* Text content */}
+      <motion.div
+        className="mt-2 flex flex-col items-center text-center"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
+      >
+        <h1 className="text-[1.75rem] font-bold leading-[1.15] tracking-tight text-[#15171C] dark:text-white">
+          Hi, I&apos;m
+          <br />
+          <span className="text-[2.25rem]">
+            Chandan{" "}
+            <span className="italic text-[#2458FF]">Kumar</span>
+          </span>
+        </h1>
+
+        {/* Location */}
+        <div className="mt-2.5 inline-flex items-center gap-1.5 text-sm font-medium text-[#5E6673] dark:text-[#a1a1aa]">
+          <MapPin size={14} />
+          {profileData.location}
+        </div>
+
+        {/* Action buttons */}
+        <div className="mt-5 flex w-full flex-col gap-3 px-2">
+          <AppleButton href="#projects" className="w-full justify-center">
+            View Projects
+            <ArrowRight size={16} />
+          </AppleButton>
+          <AppleButton variant="secondary" href="/resume.pdf" className="w-full justify-center">
+            <FileText size={16} />
+            Resume
+          </AppleButton>
+        </div>
+      </motion.div>
+    </div>
   );
 }
